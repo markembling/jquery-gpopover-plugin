@@ -4,11 +4,11 @@
     <title>jquery.gpopover Example</title>
     
     <!-- Include the styles for the plugin -->
-    <link href="jquery.gpopover.css" rel="stylesheet">
+    <link href="../jquery.gpopover.css" rel="stylesheet">
     
     <!-- Include jQuery and the jquery.gpopover plugin -->
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <script src="jquery.gpopover.js"></script>
+    <script src="../jquery.gpopover.js"></script>
     
     <style>
     #triggers { text-align: center; }
@@ -24,7 +24,16 @@
         $('#trigger-one, #trigger-two').gpopover();
         
         // Use custom options for the right button
-        $('#trigger-three').gpopover({ width: 400, preventHide: true });
+        $('#trigger-three').gpopover({
+            width: 400,
+            preventHide: true,
+            onShow: function() {
+                if (console && console.log) console.log("Popover shown.");
+            },
+            onHide: function() {
+                if (console && console.log) console.log("Popover hidden.");
+            }
+        });
         
         
         /* Set up a click handler for the #trigger-code button which will 
@@ -111,7 +120,15 @@
         This popover has some custom options set:
         <pre>{
     width: 400,
-    preventHide: true
+    preventHide: true,
+    onShow: function() {
+        if (console && console.log)
+            console.log("Popover shown.");
+    },
+    onHide: function() {
+        if (console && console.log)
+            console.log("Popover hidden.");
+    }
 }</pre>
     </div>
     
@@ -150,6 +167,18 @@
             <td><code>preventHide</code></td>
             <td>false</td>
             <td>Prevent hiding when clicking within popover (true/false)</td>
+        </tr>
+        <tr>
+            <td><code>onShow</code></td>
+            <td>(none)</td>
+            <td>Callback to be run when the popover is shown. <code>this</code> 
+                is the trigger element and the first argument passed to the 
+                function is the popover element (both jQuery-wrapped).</td>
+        </tr>
+        <tr>
+            <td><code>onHide</code></td>
+            <td>(none)</td>
+            <td>Callback to be run when the popover is hidden. Same as <code>onShow</code>.</td>
         </tr>
     </table>
     
