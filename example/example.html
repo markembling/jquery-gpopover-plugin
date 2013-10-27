@@ -5,8 +5,9 @@
     
     <link href="../jquery.gpopover.css" rel="stylesheet">
     <style>
-    /*#trigger { position:absolute;right:100px; }*/
-    #trigger { position:absolute;left:45%; }
+    #triggers { text-align: center; }
+    #trigger-two { float: left; }
+    #trigger-three { float: right; }
     </style>
     
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -19,11 +20,11 @@
     </script>
 </head>
 <body>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    
-    <button id="trigger-one" data-popover="popover-one">Pop</button>
-    <button id="trigger-two" data-popover="popover-two">Pop</button>
-    <button id="trigger-three" data-popover="popover-three">Pop</button>
+    <div id="triggers">
+        <button id="trigger-one" data-popover="popover-one">Example 1</button>
+        <button id="trigger-two" data-popover="popover-two">Example 2</button>
+        <button id="trigger-three" data-popover="popover-three">Example 3</button>
+    </div>
     
     <div id="popover-one" class="gpopover">
         Hello. Bits go here.
@@ -37,7 +38,6 @@
     
     <div id="popover-two" class="gpopover">
         Two
-        
         <ul>
             <li><a href="#1">One</a></li>
             <li><a href="#2">Two</a></li>
@@ -47,7 +47,6 @@
     
     <div id="popover-three" class="gpopover">
         Three
-        
         <ul>
             <li><a href="#1">One</a></li>
             <li><a href="#2">Two</a></li>
