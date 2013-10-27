@@ -59,3 +59,8 @@ The plugin has a few options which can be passed to it:
 The default styling is visually similar to Google's pop-out apps menu on their recent redesign, as I like the clean lines and look. However, the appearance can be modified by changing the styles in the `jquery.gpopover.css` stylesheet.
 
 The main popover element has the `gpopover` class, and the arrow is made up of two elements with the classes `gpopover-arrow` and `gpopover-arrow-shadow`. The latter is positioned 1 pixel higher to give the shadow/outline effect.
+
+## License
+
+Licensed under the BSD (3 clause) license.  
+Copyright (c) 2013 Mark Embling (markembling.info).

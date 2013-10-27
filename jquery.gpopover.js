@@ -1,4 +1,15 @@
-(function($){
+/*
+ * jquery.gpopover
+ * http://github.com/markembling/jquery-gpopover
+ *
+ * A simple jQuery plugin for creating popover elements similar to Google's 
+ * new 'apps' launcher/switcher.
+ *
+ * Copyright (c) 2013 Mark Embling (markembling.info)
+ * Licensed under the BSD (3 clause) license.
+ */
+
+;(function($){
     
     $.fn.gpopover = function(options) {
         
