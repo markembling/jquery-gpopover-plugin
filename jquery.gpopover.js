@@ -44,15 +44,13 @@
                 }
             });
         
-            //return this;
-        
         });
         
     };
     
     // Default settings
     $.fn.gpopover.defaults = {
-        width: 180,             // Width of the popover
+        width: 250,             // Width of the popover
         fadeInDuration: 65,     // Duration of popover fade-in animation
         fadeOutDuration: 65,    // Duration of popover fade-out animation
         viewportSideMargin: 10  // Space to leave the side if out the viewport
