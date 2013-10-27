@@ -21,6 +21,10 @@
                 $popover = $('#' + $trigger.data('popover'));
         
             var arrows = _addArrowElements($popover);
+            
+            if (settings.preventHide) {
+                _preventHideClickPropagation($popover);
+            }
         
             $trigger.click(function(e){
             
@@ -29,7 +33,7 @@
                     $popover.width(settings.width);
                 
                     $popover.fadeIn(settings.fadeInDuration);
-                
+                    
                     // Set up hiding
                     $(document).one('click.popoverHide', function() { 
                         $popover.fadeOut(settings.fadeOutDuration);
@@ -78,6 +82,13 @@
         $popover.append($arrowShadow);
         
         return { $arrow: $arrow, $shadow: $arrowShadow };
+    }
+    
+    function _preventHideClickPropagation($popover) {
+        /* Prevent clicks within the popover from being propagated 
+           to the document (and thus stop the popover from being 
+           hidden) */
+        $popover.click(function(e) { e.stopPropagation(); });
     }
     
     function _repositionForViewportSides($popover, sideMargin) {
