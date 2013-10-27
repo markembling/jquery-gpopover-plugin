@@ -4,28 +4,12 @@
         
         var settings = $.extend({}, $.fn.gpopover.defaults, options);
         
-        // Set up all the extra bits this plugin adds/needs
-        var $trigger = this;
-        var idOfPopoverElement = this.data('popover');
-        var $popover = $('#' + idOfPopoverElement);
+        var $trigger = this,
+            $popover = $('#' + this.data('popover'));
         
+        var arrows = _addArrowElements($popover);
         
-
-        
-        
-        
-        
-        
-        // Add the main arrow
-        var $arrow = $('<div class="gpopover-arrow"></div>');
-        $popover.append($arrow);
-        
-        // Add the second one used to create the shadow/outline bit
-        var $arrowShadow = $('<div class="gpopover-arrow-shadow"></div>');
-        $popover.append($arrowShadow);
-        
-        // The actual triggering function
-        this.click(function(e){
+        $trigger.click(function(e){
             
             if (! $popover.is(":visible")) {
                 // Set width before showing
@@ -50,7 +34,7 @@
                 var positionXCorrection = _repositionForViewportSides($popover, settings.viewportSideMargin);
                 
                 // Set the position of the arrow elements
-                _setArrowPosition($arrow, $arrowShadow, $popover, positionXCorrection);
+                _setArrowPosition(arrows, $popover, positionXCorrection);
 
                 // Prevent this event from having any further effect
                 e.preventDefault();
@@ -71,6 +55,16 @@
     };
     
     // Private functions
+    
+    function _addArrowElements($popover) {
+        var $arrow = $('<div class="gpopover-arrow"></div>');
+        var $arrowShadow = $('<div class="gpopover-arrow-shadow"></div>');
+        
+        $popover.append($arrow);
+        $popover.append($arrowShadow);
+        
+        return { $arrow: $arrow, $shadow: $arrowShadow };
+    }
     
     function _repositionForViewportSides($popover, sideMargin) {
         var popoverOffsetLeft = $popover.offset().left;
@@ -100,11 +94,11 @@
         return positionXCorrection;
     }
     
-    function _setArrowPosition($arrow, $arrowShadow, $popover, positionXCorrection) {
-        var leftPosition = ($popover.outerWidth() / 2) - ($arrow.outerWidth() / 2) - positionXCorrection;
+    function _setArrowPosition(arrows, $popover, positionXCorrection) {
+        var leftPosition = ($popover.outerWidth() / 2) - (arrows.$arrow.outerWidth() / 2) - positionXCorrection;
         
-        $arrow.css({ top: -7, left: leftPosition });
-        $arrowShadow.css({ top: -8, left: leftPosition });
+        arrows.$arrow.css({ top: -7, left: leftPosition });
+        arrows.$shadow.css({ top: -8, left: leftPosition });
     }
     
 })(jQuery);
