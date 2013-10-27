@@ -18,6 +18,10 @@ Create the popover content element somewhere in your document. You may place thi
 Initialise the plugin on your trigger element. That's it.
 
     $('#my-trigger').gpopover();
+    
+## Demo
+
+Want to see what the popovers look like? Check out the [simple example](http://markembling.github.io/jquery-gpopover/).
 
 ## Customising the Plugin
 
