@@ -14,15 +14,54 @@
     #triggers { text-align: center; }
     #trigger-two { float: left; }
     #trigger-three { float: right; }
+    #trigger-code { width: 120px; }
     </style>
     
     <script>
     $(function(){
+        
         // Use default options for the left and middle buttons
         $('#trigger-one, #trigger-two').gpopover();
         
         // Use custom options for the right button
-        $('#trigger-three').gpopover({ width: 400 });
+        $('#trigger-three').gpopover({ width: 400, preventHide: true });
+        
+        
+        /* Set up a click handler for the #trigger-code button which will 
+           cause a countdown which shows and hides the popover in code. */
+        $('#trigger-code').click(function(e){
+            var remaining = 3,
+                $button = $(this),
+                originalText = $button.text();
+            
+            $button.text('Showing in ' + remaining + "...");
+            $button.attr('disabled', 'disabled');
+            
+            // Set up interval
+            var interval = setInterval(function() {
+                remaining -= 1;
+                
+                if (remaining > 0)
+                    $button.text('Showing in ' + remaining + "...");
+                else
+                    $button.text('Hiding in ' + -((-remaining)-5) + "...");
+                
+                if (remaining == 0) {
+                    // Trigger the show for the popover 
+                    // (note: it must have been initialised first)
+                    $('#trigger-one').gpopover('show');
+                } else if (remaining <= -5) {
+                    // Trigger the hide for the popover
+                    $('#trigger-one').gpopover('hide');
+                    
+                    // Cancel this interval
+                    clearInterval(interval);
+                    $button.text(originalText);
+                    $button.removeAttr('disabled');
+                }
+            }, 1000);
+        });
+        
     });
     </script>
 </head>
@@ -37,6 +76,8 @@
     <div id="triggers">
         <!-- The buttons which trigger the popovers -->
         <button id="trigger-one" data-popover="popover-one">Example 1</button>
+        <button id="trigger-code">From code</button>
+        
         <button id="trigger-two" data-popover="popover-two">Example 2</button>
         <button id="trigger-three" data-popover="popover-three">Example 3</button>
     </div>
@@ -67,9 +108,11 @@
     
     <!-- Popover element for the 'Example 3' button -->
     <div id="popover-three" class="gpopover">
-        This popover has a custom width set. The height of the popover 
-        automatically fits the content within. To set a fixed height, customise 
-        the CSS or size your content within.
+        This popover has some custom options set:
+        <pre>{
+    width: 400,
+    preventHide: true
+}</pre>
     </div>
     
     <h2>Customising the Plugin</h2>
@@ -102,6 +145,11 @@
             <td><code>viewportSideMargin</code></td>
             <td>10</td>
             <td>Space to leave at the side, if up against the viewport edge (pixels)</td>
+        </tr>
+        <tr>
+            <td><code>preventHide</code></td>
+            <td>false</td>
+            <td>Prevent hiding when clicking within popover (true/false)</td>
         </tr>
     </table>
     
