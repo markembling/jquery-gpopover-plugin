@@ -35,6 +35,9 @@
         
         this.$trigger.click(function(e){
             if (! that.$popover.is(":visible")) {
+                // Trigger a click on the parent element (that can bubble up)
+                $(this).parent().click();
+                
                 that.show();
                 
                 // Prevent this event from having any further effect
