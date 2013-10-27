@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jquery.gpopover Example</title>
+    
+    <link href="../jquery.gpopover.css" rel="stylesheet">
+    <style>
+    /*#trigger { position:absolute;right:100px; }*/
+    #trigger { position:absolute;left:45%; }
+    </style>
+    
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../jquery.gpopover.js"></script>
+    
+    <script>
+    $(function(){
+        $('#trigger-one, #trigger-two, #trigger-three').gpopover({width: 250});
+    });
+    </script>
+</head>
+<body>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    
+    <button id="trigger-one" data-popover="popover-one">Pop</button>
+    <button id="trigger-two" data-popover="popover-two">Pop</button>
+    <button id="trigger-three" data-popover="popover-three">Pop</button>
+    
+    <div id="popover-one" class="gpopover">
+        Hello. Bits go here.
+        
+        <ul>
+            <li><a href="#1">One</a></li>
+            <li><a href="#2">Two</a></li>
+            <li><a href="#3">Three</a></li>
+        </ul>
+    </div>
+    
+    <div id="popover-two" class="gpopover">
+        Two
+        
+        <ul>
+            <li><a href="#1">One</a></li>
+            <li><a href="#2">Two</a></li>
+            <li><a href="#3">Three</a></li>
+        </ul>
+    </div>
+    
+    <div id="popover-three" class="gpopover">
+        Three
+        
+        <ul>
+            <li><a href="#1">One</a></li>
+            <li><a href="#2">Two</a></li>
+            <li><a href="#3">Three</a></li>
+        </ul>
+    </div>
+    
+</body>
+</html>
