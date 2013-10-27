@@ -1,12 +1,10 @@
 .gpopover {
-    display: none;
-    
     border: 1px solid #CCC;
     border-color: rgba(0, 0, 0, 0.2);
-    padding: 12px;
     border-radius: 2px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    
+    display: none;
+    padding: 12px;
     z-index: 998;
 }
 
@@ -14,12 +12,9 @@
     border: 8px solid transparent;
     border-bottom-color: #FFF;
     border-top-width: 0;
-    
     height: 0;
-    width: 0;
-    
     position: absolute;
-    
+    width: 0;
     z-index: 999;
 }
 
@@ -28,11 +23,8 @@
     border-bottom-color: #C0C0C0;
     border-bottom-color: rgba(0, 0, 0, 0.275);
     border-top-width: 0;
-    
     height: 0;
-    width: 0;
-    
     position: absolute;
-    
+    width: 0;
     z-index: 997;
 }
