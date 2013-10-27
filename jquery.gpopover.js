@@ -4,53 +4,57 @@
         
         var settings = $.extend({}, $.fn.gpopover.defaults, options);
         
-        var $trigger = this,
-            $popover = $('#' + this.data('popover'));
+        return this.each(function(){
         
-        var arrows = _addArrowElements($popover);
+            var $trigger = $(this),
+                $popover = $('#' + $trigger.data('popover'));
         
-        $trigger.click(function(e){
+            var arrows = _addArrowElements($popover);
+        
+            $trigger.click(function(e){
             
-            if (! $popover.is(":visible")) {
-                // Set width before showing
-                $popover.width(settings.width);
+                if (! $popover.is(":visible")) {
+                    // Set width before showing
+                    $popover.width(settings.width);
                 
-                $popover.fadeIn(settings.fadeInDuration);
+                    $popover.fadeIn(settings.fadeInDuration);
                 
-                // Set up hiding
-                $(document).one('click.popoverHide', function() { 
-                    $popover.fadeOut(settings.fadeOutDuration);
-                });
+                    // Set up hiding
+                    $(document).one('click.popoverHide', function() { 
+                        $popover.fadeOut(settings.fadeOutDuration);
+                    });
                 
-                // Sort out the position (must be done after showing)
-                var triggerPos = $trigger.offset();
-                $popover.offset({
-                    left: (triggerPos.left + ($trigger.outerWidth() / 2)) - ($popover.outerWidth() / 2),
-                    top: triggerPos.top + $trigger.outerHeight() + 10  
-                    // the final 10 above allows room for the arrow above it
-                });
+                    // Sort out the position (must be done after showing)
+                    var triggerPos = $trigger.offset();
+                    $popover.offset({
+                        left: (triggerPos.left + ($trigger.outerWidth() / 2)) - ($popover.outerWidth() / 2),
+                        top: triggerPos.top + $trigger.outerHeight() + 10  
+                        // the final 10 above allows room for the arrow above it
+                    });
                 
-                // Check and reposition if out of the viewport
-                var positionXCorrection = _repositionForViewportSides($popover, settings.viewportSideMargin);
+                    // Check and reposition if out of the viewport
+                    var positionXCorrection = _repositionForViewportSides($popover, settings.viewportSideMargin);
                 
-                // Set the position of the arrow elements
-                _setArrowPosition(arrows, $popover, positionXCorrection);
+                    // Set the position of the arrow elements
+                    _setArrowPosition(arrows, $popover, positionXCorrection);
 
-                // Prevent this event from having any further effect
-                e.preventDefault();
-                e.stopPropagation();
-            }
-        });
+                    // Prevent this event from having any further effect
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            });
         
-        return this;
+            //return this;
+        
+        });
         
     };
     
     // Default settings
     $.fn.gpopover.defaults = {
         width: 180,             // Width of the popover
-        fadeInDuration: 75,     // Duration of popover fade-in animation
-        fadeOutDuration: 75,    // Duration of popover fade-out animation
+        fadeInDuration: 65,     // Duration of popover fade-in animation
+        fadeOutDuration: 65,    // Duration of popover fade-out animation
         viewportSideMargin: 10  // Space to leave the side if out the viewport
     };
     
