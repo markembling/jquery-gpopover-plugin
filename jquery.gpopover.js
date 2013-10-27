@@ -1,5 +1,5 @@
 /*
- * jquery.gpopover
+ * jquery-gpopover
  * http://github.com/markembling/jquery-gpopover
  *
  * A simple jQuery plugin for creating popover elements similar to Google's 
@@ -11,65 +11,139 @@
 
 ;(function($){
     
-    $.fn.gpopover = function(options) {
+    var GPopover = function(element, options) {
+        this.options = null;
+        this.$trigger = null;
+        this.$popover = null;
         
-        var settings = $.extend({}, $.fn.gpopover.defaults, options);
+        this.init(element, options);
+    }
+    
+    GPopover.prototype.init = function(element, options) {
+        var that = this;
         
+        this.options = $.extend({}, $.fn.gpopover.defaults, options);
+        
+        this.$trigger = $(element);
+        this.$popover = $('#' + this.$trigger.data('popover'));
+        
+        this._addArrowElements();
+        
+        if (this.options.preventHide) {
+            this._preventHideClickPropagation();
+        }
+        
+        this.$trigger.click(function(e){
+            if (! that.$popover.is(":visible")) {
+                that.show();
+                
+                // Prevent this event from having any further effect
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        });
+    }
+    
+    GPopover.prototype.show = function() {
+        var that = this;
+        
+        // Set width before showing
+        this.$popover.width(this.options.width);
+        
+        // Show the popover
+        this.$popover.fadeIn(this.options.fadeInDuration);
+        
+        // Set up hiding
+        $(document).one('click.popoverHide', function() {
+            // _hidePopover($popover, settings);
+            that.hide();
+        });
+    
+        // Sort out the position (must be done after showing)
+        var triggerPos = this.$trigger.offset();
+        this.$popover.offset({
+            left: (triggerPos.left + (this.$trigger.outerWidth() / 2)) - (this.$popover.outerWidth() / 2),
+            top: triggerPos.top + this.$trigger.outerHeight() + 10  
+            // the final 10 above allows room for the arrow above it
+        });
+    
+        // Check and reposition if out of the viewport
+        var positionXCorrection = this._repositionForViewportSides();
+    
+        // Set the position of the arrow elements
+        this._setArrowPosition(positionXCorrection);
+    }
+    
+    GPopover.prototype.hide = function() {
+        // Hide the popover
+        this.$popover.fadeOut(this.options.fadeOutDuration);
+    }
+    
+    GPopover.prototype._addArrowElements = function() {
+        this.$arrow = $('<div class="gpopover-arrow"></div>');
+        this.$arrowShadow = $('<div class="gpopover-arrow-shadow"></div>');
+        
+        this.$popover.append(this.$arrow);
+        this.$popover.append(this.$arrowShadow);
+    }
+    
+    GPopover.prototype._preventHideClickPropagation = function() {
+        /* Prevent clicks within the popover from being propagated 
+           to the document (and thus stop the popover from being 
+           hidden) */
+        this.$popover.click(function(e) { e.stopPropagation(); });
+    }
+    
+    GPopover.prototype._repositionForViewportSides = function() {
+        var popoverOffsetLeft = this.$popover.offset().left,
+            positionXCorrection = 0,
+            $window = $(window);
+        
+        // Right edge
+        if (popoverOffsetLeft + this.$popover.outerWidth() + this.options.viewportSideMargin > $window.width()) {
+            var rightEdgeCorrection = -((popoverOffsetLeft + this.$popover.outerWidth() + this.options.viewportSideMargin) - $window.width());
+            popoverOffsetLeft = popoverOffsetLeft + rightEdgeCorrection
+        
+            positionXCorrection = rightEdgeCorrection;
+        }
+        
+        // Left edge
+        if (popoverOffsetLeft < this.options.viewportSideMargin) {
+            var leftEdgeCorrection = this.options.viewportSideMargin - popoverOffsetLeft;
+            popoverOffsetLeft = popoverOffsetLeft + leftEdgeCorrection
+            
+            positionXCorrection += leftEdgeCorrection;
+        }
+        
+        // Reposition the popover element if necessary
+        if (positionXCorrection !== 0) {
+            this.$popover.offset({ left: popoverOffsetLeft });
+        }
+        
+        return positionXCorrection;
+    }
+    
+    GPopover.prototype._setArrowPosition = function(positionXCorrection) {
+        var leftPosition = (this.$popover.outerWidth() / 2) - (this.$arrow.outerWidth() / 2) - positionXCorrection;
+        
+        this.$arrow.css({ top: -7, left: leftPosition });
+        this.$arrowShadow.css({ top: -8, left: leftPosition });
+    }
+    
+    $.fn.gpopover = function(option) {
         return this.each(function(){
-        
-            var $trigger = $(this),
-                $popover = $('#' + $trigger.data('popover'));
+            var $this = $(this),
+                data = $this.data('gpopover'),
+                options = (typeof option == 'object' && option);
                 
-            // Trigger show
-            if (options === "show") {
-                var data = $trigger.data('gpopup.data');
-                if (!data.$popover.is(":visible")) {
-                    _showPopover($trigger, data.$popover, data.settings, data.arrows);
-                }
-                
-                return;
+            // Initialise if not already done
+            if (!data) {
+                data = new GPopover(this, options);
+                $this.data('gpopover', data);
             }
             
-            // Trigger hide
-            if (options === "hide") {
-                var data = $trigger.data('gpopup.data');
-                if (data.$popover.is(":visible")) {
-                    _hidePopover(data.$popover, data.settings);
-                }
-                
-                return;
-            }
-            
-            // Default initialisation stuff
-        
-            var arrows = _addArrowElements($popover);
-            
-            // put stuff into data thing for later
-            $trigger.data("gpopup.data", {
-                $popover: $popover,
-                settings: settings,
-                arrows: arrows
-            });
-            
-            if (settings.preventHide) {
-                _preventHideClickPropagation($popover);
-            }
-        
-            $trigger.click(function(e){
-            
-                if (! $popover.is(":visible")) {
-                    
-                
-                    _showPopover($trigger, $popover, settings, arrows);
-                    
-
-
-                    // Prevent this event from having any further effect
-                    e.preventDefault();
-                    e.stopPropagation();
-                }
-            });
-        
+            // If the option parameter was a string, trigger the named function
+            if (typeof option == 'string') data[option]();
         });
         
     };
@@ -82,91 +156,5 @@
         viewportSideMargin: 10, // Space to leave the side if out the viewport
         preventHide: false      // Prevent hide when clicking within popover
     };
-    
-    // Private functions
-    
-    function _addArrowElements($popover) {
-        var $arrow = $('<div class="gpopover-arrow"></div>');
-        var $arrowShadow = $('<div class="gpopover-arrow-shadow"></div>');
-        
-        $popover.append($arrow);
-        $popover.append($arrowShadow);
-        
-        return { $arrow: $arrow, $shadow: $arrowShadow };
-    }
-    
-    function _preventHideClickPropagation($popover) {
-        /* Prevent clicks within the popover from being propagated 
-           to the document (and thus stop the popover from being 
-           hidden) */
-        $popover.click(function(e) { e.stopPropagation(); });
-    }
-    
-    function _showPopover($trigger, $popover, settings, arrows) {
-        // Set width before showing
-        $popover.width(settings.width);
-        
-        // Show the popover
-        $popover.fadeIn(settings.fadeInDuration);
-        
-        // Set up hiding
-        $(document).one('click.popoverHide', function() {
-            _hidePopover($popover, settings);
-        });
-    
-        // Sort out the position (must be done after showing)
-        var triggerPos = $trigger.offset();
-        $popover.offset({
-            left: (triggerPos.left + ($trigger.outerWidth() / 2)) - ($popover.outerWidth() / 2),
-            top: triggerPos.top + $trigger.outerHeight() + 10  
-            // the final 10 above allows room for the arrow above it
-        });
-    
-        // Check and reposition if out of the viewport
-        var positionXCorrection = _repositionForViewportSides($popover, settings.viewportSideMargin);
-    
-        // Set the position of the arrow elements
-        _setArrowPosition(arrows, $popover, positionXCorrection);
-    }
-    
-    function _hidePopover($popover, settings) {
-        // Hide the popover
-        $popover.fadeOut(settings.fadeOutDuration);
-    }
-    
-    function _repositionForViewportSides($popover, sideMargin) {
-        var popoverOffsetLeft = $popover.offset().left;
-        var positionXCorrection = 0;
-        
-        // Right edge
-        if (popoverOffsetLeft + $popover.outerWidth() + sideMargin > $(window).width()) {
-            var rightEdgeCorrection = -((popoverOffsetLeft + $popover.outerWidth() + sideMargin) - $(window).width());
-            popoverOffsetLeft = popoverOffsetLeft + rightEdgeCorrection
-        
-            positionXCorrection = rightEdgeCorrection;
-        }
-        
-        // Left edge
-        if (popoverOffsetLeft < sideMargin) {
-            var leftEdgeCorrection = sideMargin - popoverOffsetLeft;
-            popoverOffsetLeft = popoverOffsetLeft + leftEdgeCorrection
-            
-            positionXCorrection += leftEdgeCorrection;
-        }
-        
-        // Reposition the popover element if necessary
-        if (positionXCorrection !== 0) {
-            $popover.offset({ left: popoverOffsetLeft });
-        }
-        
-        return positionXCorrection;
-    }
-    
-    function _setArrowPosition(arrows, $popover, positionXCorrection) {
-        var leftPosition = ($popover.outerWidth() / 2) - (arrows.$arrow.outerWidth() / 2) - positionXCorrection;
-        
-        arrows.$arrow.css({ top: -7, left: leftPosition });
-        arrows.$shadow.css({ top: -8, left: leftPosition });
-    }
     
 })(jQuery);

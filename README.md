@@ -18,6 +18,13 @@ Create the popover content element somewhere in your document. You may place thi
 Initialise the plugin on your trigger element. That's it.
 
     $('#my-trigger').gpopover();
+
+You can also trigger a show or hide through code (i.e. without the user clicking), by invoking the show or hide methods.:
+
+    $('#my-trigger').gpopover('show');
+    $('#my-trigger').gpopover('hide');
+
+This is normally best done after initialising your popovers as above, but if it hasn't been done, it will do so using default options before then acting.
     
 ## Demo
 
