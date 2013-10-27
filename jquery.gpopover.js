@@ -19,8 +19,37 @@
         
             var $trigger = $(this),
                 $popover = $('#' + $trigger.data('popover'));
+                
+            // Trigger show
+            if (options === "show") {
+                var data = $trigger.data('gpopup.data');
+                if (!data.$popover.is(":visible")) {
+                    _showPopover($trigger, data.$popover, data.settings, data.arrows);
+                }
+                
+                return;
+            }
+            
+            // Trigger hide
+            if (options === "hide") {
+                var data = $trigger.data('gpopup.data');
+                if (data.$popover.is(":visible")) {
+                    _hidePopover(data.$popover, data.settings);
+                }
+                
+                return;
+            }
+            
+            // Default initialisation stuff
         
             var arrows = _addArrowElements($popover);
+            
+            // put stuff into data thing for later
+            $trigger.data("gpopup.data", {
+                $popover: $popover,
+                settings: settings,
+                arrows: arrows
+            });
             
             if (settings.preventHide) {
                 _preventHideClickPropagation($popover);
@@ -29,29 +58,11 @@
             $trigger.click(function(e){
             
                 if (! $popover.is(":visible")) {
-                    // Set width before showing
-                    $popover.width(settings.width);
-                
-                    _showPopover($popover, settings);
                     
-                    // Set up hiding
-                    $(document).one('click.popoverHide', function() {
-                        _hidePopover($popover, settings);
-                    });
                 
-                    // Sort out the position (must be done after showing)
-                    var triggerPos = $trigger.offset();
-                    $popover.offset({
-                        left: (triggerPos.left + ($trigger.outerWidth() / 2)) - ($popover.outerWidth() / 2),
-                        top: triggerPos.top + $trigger.outerHeight() + 10  
-                        // the final 10 above allows room for the arrow above it
-                    });
-                
-                    // Check and reposition if out of the viewport
-                    var positionXCorrection = _repositionForViewportSides($popover, settings.viewportSideMargin);
-                
-                    // Set the position of the arrow elements
-                    _setArrowPosition(arrows, $popover, positionXCorrection);
+                    _showPopover($trigger, $popover, settings, arrows);
+                    
+
 
                     // Prevent this event from having any further effect
                     e.preventDefault();
@@ -91,9 +102,31 @@
         $popover.click(function(e) { e.stopPropagation(); });
     }
     
-    function _showPopover($popover, settings) {
+    function _showPopover($trigger, $popover, settings, arrows) {
+        // Set width before showing
+        $popover.width(settings.width);
+        
         // Show the popover
         $popover.fadeIn(settings.fadeInDuration);
+        
+        // Set up hiding
+        $(document).one('click.popoverHide', function() {
+            _hidePopover($popover, settings);
+        });
+    
+        // Sort out the position (must be done after showing)
+        var triggerPos = $trigger.offset();
+        $popover.offset({
+            left: (triggerPos.left + ($trigger.outerWidth() / 2)) - ($popover.outerWidth() / 2),
+            top: triggerPos.top + $trigger.outerHeight() + 10  
+            // the final 10 above allows room for the arrow above it
+        });
+    
+        // Check and reposition if out of the viewport
+        var positionXCorrection = _repositionForViewportSides($popover, settings.viewportSideMargin);
+    
+        // Set the position of the arrow elements
+        _setArrowPosition(arrows, $popover, positionXCorrection);
     }
     
     function _hidePopover($popover, settings) {
