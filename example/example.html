@@ -27,6 +27,13 @@
     </script>
 </head>
 <body>
+    <h1>jquery.gpopover</h1>
+    <p>A jQuery plugin for creating popover elements similar to Google's new 
+        'apps' launcher/switcher.</p>
+    <p>Click the buttons below to see examples. The popover will ensure that it 
+        is kept within the viewport where possible, and that the arrow at the 
+        top always points to the element which triggered it.</p>
+    
     <div id="triggers">
         <!-- The buttons which trigger the popovers -->
         <button id="trigger-one" data-popover="popover-one">Example 1</button>
@@ -67,6 +74,50 @@
             <li><a href="#3">Three</a></li>
         </ul>
     </div>
+    
+    <h2>Customising the Plugin</h2>
+    
+    <h3>Options</h3>
+    <p>The plugin has a few options which can be passed to it:</p>
+    <table>
+        <tr>
+            <th>Property</th>
+            <th>Default</th>
+            <th>Description</th>
+        </tr>
+        
+        <tr>
+            <td><code>width</code></td>
+            <td>250</td>
+            <td>The width of the popover element (pixels)</td>
+        </tr>
+        <tr>
+            <td><code>fadeInDuration</code></td>
+            <td>65</td>
+            <td>Duration of popover fade-in animation (ms)</td>
+        </tr>
+        <tr>
+            <td><code>fadeOutDuration</code></td>
+            <td>65</td>
+            <td>Duration of popover fade-out animation (ms)</td>
+        </tr>
+        <tr>
+            <td><code>viewportSideMargin</code></td>
+            <td>10</td>
+            <td>Space to leave at the side, if up against the viewport edge (pixels)</td>
+        </tr>
+    </table>
+    
+    <h3>Styling</h3>
+    <p>The default styling is visually similar to Google's pop-out apps menu on 
+        their recent redesign, as I like the clean lines and look. However, 
+        the appearance can be modified by changing the styles in the 
+        <code>jquery.gpopover.css</code> stylesheet.</p>
+    <p>The main popover element has the <code>gpopover</code> class, and the 
+        arrow is made up of two elements with the classes 
+        <code>gpopover-arrow</code> and <code>gpopover-arrow-shadow</code>. The 
+        latter is positioned 1 pixel higher to give the shadow/outline effect.</p>
+        
     
 </body>
 </html>
