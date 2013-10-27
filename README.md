@@ -56,6 +56,11 @@ The plugin has a few options which can be passed to it:
         <td>10</td>
         <td>Space to leave at the side, if up against the viewport edge (pixels)</td>
     </tr>
+    <tr>
+        <td><code>preventHide</code></td>
+        <td>false</td>
+        <td>Prevent hiding when clicking within popover (true/false)</td>
+    </tr>
 </table>
 
 ### Styling
