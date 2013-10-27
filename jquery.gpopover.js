@@ -72,11 +72,17 @@
     
         // Set the position of the arrow elements
         this._setArrowPosition(positionXCorrection);
+        
+        // Call the callback
+        this.options.onShow.call(this.$trigger, this.$popover);
     }
     
     GPopover.prototype.hide = function() {
         // Hide the popover
         this.$popover.fadeOut(this.options.fadeOutDuration);
+        
+        // Call the callback
+        this.options.onHide.call(this.$trigger, this.$popover);
     }
     
     GPopover.prototype._addArrowElements = function() {
@@ -154,7 +160,10 @@
         fadeInDuration: 65,     // Duration of popover fade-in animation
         fadeOutDuration: 65,    // Duration of popover fade-out animation
         viewportSideMargin: 10, // Space to leave the side if out the viewport
-        preventHide: false      // Prevent hide when clicking within popover
+        preventHide: false,     // Prevent hide when clicking within popover
+        
+        onShow: function() {},  // Called upon showing the popover
+        onHide: function() {}   // Called upon hiding the popover
     };
     
 })(jQuery);

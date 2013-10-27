@@ -24,7 +24,16 @@
         $('#trigger-one, #trigger-two').gpopover();
         
         // Use custom options for the right button
-        $('#trigger-three').gpopover({ width: 400, preventHide: true });
+        $('#trigger-three').gpopover({
+            width: 400,
+            preventHide: true,
+            onShow: function() {
+                if (console && console.log) console.log("Popover shown.");
+            },
+            onHide: function() {
+                if (console && console.log) console.log("Popover hidden.");
+            }
+        });
         
         
         /* Set up a click handler for the #trigger-code button which will 
@@ -111,7 +120,15 @@
         This popover has some custom options set:
         <pre>{
     width: 400,
-    preventHide: true
+    preventHide: true,
+    onShow: function() {
+        if (console && console.log)
+            console.log("Popover shown.");
+    },
+    onHide: function() {
+        if (console && console.log)
+            console.log("Popover hidden.");
+    }
 }</pre>
     </div>
     
