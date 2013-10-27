@@ -64,7 +64,8 @@
         width: 250,             // Width of the popover
         fadeInDuration: 65,     // Duration of popover fade-in animation
         fadeOutDuration: 65,    // Duration of popover fade-out animation
-        viewportSideMargin: 10  // Space to leave the side if out the viewport
+        viewportSideMargin: 10, // Space to leave the side if out the viewport
+        preventHide: false      // Prevent hide when clicking within popover
     };
     
     // Private functions
