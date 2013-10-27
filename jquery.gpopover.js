@@ -32,11 +32,11 @@
                     // Set width before showing
                     $popover.width(settings.width);
                 
-                    $popover.fadeIn(settings.fadeInDuration);
+                    _showPopover($popover, settings);
                     
                     // Set up hiding
-                    $(document).one('click.popoverHide', function() { 
-                        $popover.fadeOut(settings.fadeOutDuration);
+                    $(document).one('click.popoverHide', function() {
+                        _hidePopover($popover, settings);
                     });
                 
                     // Sort out the position (must be done after showing)
@@ -89,6 +89,16 @@
            to the document (and thus stop the popover from being 
            hidden) */
         $popover.click(function(e) { e.stopPropagation(); });
+    }
+    
+    function _showPopover($popover, settings) {
+        // Show the popover
+        $popover.fadeIn(settings.fadeInDuration);
+    }
+    
+    function _hidePopover($popover, settings) {
+        // Hide the popover
+        $popover.fadeOut(settings.fadeOutDuration);
     }
     
     function _repositionForViewportSides($popover, sideMargin) {
