@@ -40,10 +40,10 @@
                 
                 that.show();
                 
-                // Prevent this event from having any further effect
-                e.preventDefault();
                 e.stopPropagation();
             }
+            
+            e.preventDefault();
         });
     }
     
