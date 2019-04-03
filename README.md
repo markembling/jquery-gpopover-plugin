@@ -36,59 +36,23 @@ Want to see what the popovers look like? Check out the [simple example](http://m
 
 The plugin has a few options which can be passed to it:
 
-<table>
-    <tr>
-        <th>Property</th>
-        <th>Default</th>
-        <th>Description</th>
-    </tr>
-    
-    <tr>
-        <td><code>width</code></td>
-        <td>250</td>
-        <td>The width of the popover element (pixels)</td>
-    </tr>
-    <tr>
-        <td><code>fadeInDuration</code></td>
-        <td>65</td>
-        <td>Duration of popover fade-in animation (ms)</td>
-    </tr>
-    <tr>
-        <td><code>fadeOutDuration</code></td>
-        <td>65</td>
-        <td>Duration of popover fade-out animation (ms)</td>
-    </tr>
-    <tr>
-        <td><code>viewportSideMargin</code></td>
-        <td>10</td>
-        <td>Space to leave at the side, if up against the viewport edge (pixels)</td>
-    </tr>
-    <tr>
-        <td><code>preventHide</code></td>
-        <td>false</td>
-        <td>Prevent hiding when clicking within popover (true/false)</td>
-    </tr>
-    <tr>
-        <td><code>onShow</code></td>
-        <td>(none)</td>
-        <td>Callback to be run when the popover is shown. <code>this</code> 
-            is the trigger element and the first argument passed to the 
-            function is the popover element (both jQuery-wrapped).</td>
-    </tr>
-    <tr>
-        <td><code>onHide</code></td>
-        <td>(none)</td>
-        <td>Callback to be run when the popover is hidden. Same as  <code>onShow</code>.</td>
-    </tr>
-</table>
+| Property | Default | Description
+| -------- | ------- | -----------
+| `width`  | 250     | The width of the popover element (pixels) 
+| `fadeInDuration` | 65 | Duration of popover fade-in animation (ms)
+| `fadeOutDuration` | 65 | Duration of popover fade-out animation (ms)
+| `viewportSideMargin` | 10 | Space to leave at the side when against the viewport edge (pixels)
+| `preventHide` | `false` | Prevent hiding when clicking within popover (true/false)
+| `onShow` | (none) | Callback to be run when the popover is shown. `this` is the trigger element and the first argument passed to the function is the popover element (both jQuery-wrapped).
+| `onHide` | (none) | Callback to be run when the popover is hidden. Same as `onShow.
 
 ### Styling
 
-The default styling is visually similar to Google's pop-out apps menu on their recent redesign, as I like the clean lines and look. However, the appearance can be modified by changing the styles in the `jquery.gpopover.css` stylesheet.
+The default styling is visually similar to Google's pop-out apps menu as I like the clean lines and look. However the appearance can be modified by changing/overriding the styles in the `jquery.gpopover.css` stylesheet.
 
 The main popover element has the `gpopover` class, and the arrow is made up of two elements with the classes `gpopover-arrow` and `gpopover-arrow-shadow`. The latter is positioned 1 pixel higher to give the shadow/outline effect.
 
 ## License
 
 Licensed under the BSD (3 clause) license.  
-Copyright (c) 2013 Mark Embling (markembling.info).
+Copyright (c) 2013-2019 [Mark Embling](markembling.info).
