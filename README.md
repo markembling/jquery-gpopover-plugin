@@ -1,7 +1,7 @@
-jquery-gpopover
-===============
+jQuery 'gpopover' Plugin
+========================
 
-A simple jQuery plugin for creating popover elements similar to Google's new 'apps' launcher/switcher.
+A simple jQuery plugin for creating popover elements similar to Google's apps launcher/switcher.
 
 ## Usage
 
@@ -28,7 +28,7 @@ This is normally best done after initialising your popovers as above, but if it 
     
 ## Demo
 
-Want to see what the popovers look like? Check out the [simple example](http://markembling.github.io/jquery-gpopover/).
+Want to see what the popovers look like? Check out the [simple example](https://markembling.github.io/jquery-gpopover-plugin/).
 
 ## Customising the Plugin
 
@@ -44,11 +44,11 @@ The plugin has a few options which can be passed to it:
 | `viewportSideMargin` | 10 | Space to leave at the side when against the viewport edge (pixels)
 | `preventHide` | `false` | Prevent hiding when clicking within popover (true/false)
 | `onShow` | (none) | Callback to be run when the popover is shown. `this` is the trigger element and the first argument passed to the function is the popover element (both jQuery-wrapped).
-| `onHide` | (none) | Callback to be run when the popover is hidden. Same as `onShow.
+| `onHide` | (none) | Callback to be run when the popover is hidden. Same as `onShow`.
 
 ### Styling
 
-The default styling is visually similar to Google's pop-out apps menu as I like the clean lines and look. However the appearance can be modified by changing/overriding the styles in the `jquery.gpopover.css` stylesheet.
+The default styling is visually similar to Google's pop-out apps menu as I like the clean lines and look. However the appearance can be modified by changing, overriding or replacing the styles in the `jquery.gpopover.css` stylesheet.
 
 The main popover element has the `gpopover` class, and the arrow is made up of two elements with the classes `gpopover-arrow` and `gpopover-arrow-shadow`. The latter is positioned 1 pixel higher to give the shadow/outline effect.
 
