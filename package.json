@@ -1,0 +1,23 @@
+{
+  "name": "jquery-gpopover-plugin",
+  "version": "1.0.0",
+  "description": "A simple jQuery plugin for creating popover elements similar to Google's apps launcher/switcher.",
+  "main": "jquery.gpopover.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/markembling/jquery-gpopover-plugin.git"
+  },
+  "keywords": [
+    "jquery-plugin",
+    "ecosystem:jquery"
+  ],
+  "author": "Mark Embling",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/markembling/jquery-gpopover-plugin/issues"
+  },
+  "homepage": "https://github.com/markembling/jquery-gpopover-plugin#readme"
+}
