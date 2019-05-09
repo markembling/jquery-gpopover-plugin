@@ -14,6 +14,9 @@
     "url": "git+https://github.com/markembling/jquery-gpopover-plugin.git"
   },
   "keywords": [
+    "popover",
+    "popup",
+    "gpopover",
     "jquery-plugin",
     "ecosystem:jquery"
   ],
