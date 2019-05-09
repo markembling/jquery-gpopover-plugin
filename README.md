@@ -3,6 +3,24 @@ jQuery 'gpopover' Plugin
 
 A simple jQuery plugin for creating popover elements similar to Google's apps launcher/switcher.
 
+## Installation
+
+### Package Managers
+
+You can install the plugin using NPM or Bower.
+
+    npm install jquery-gpopover-plugin
+    bower install jquery-gpopover-plugin
+
+### Manually
+
+If you'd prefer to install manually, download and include the JS and CSS files in your project.
+
+    <link rel="stylesheet" href="jquery.gpopover.js">
+    <script type="text/javascript" src="jquery.gpopover.js"></script>
+
+Ensure jQuery is also available and included before the plugin JS file.
+
 ## Usage
 
 Create a trigger element on your page (for example, a link or a button), and set the `data-popover` attribute to the ID of the element you wish to pop over.
@@ -28,13 +46,13 @@ This is normally best done after initialising your popovers as above, but if it 
     
 ## Demo
 
-Want to see what the popovers look like? Check out the [simple example](https://markembling.github.io/jquery-gpopover-plugin/).
+Want to see the popovers in action? Check out the [examples](https://markembling.github.io/jquery-gpopover-plugin/).
 
 ## Customising the Plugin
 
 ### Options
 
-The plugin has a few options which can be passed to it:
+The plugin has some options which can be passed to it:
 
 | Property | Default | Description
 | -------- | ------- | -----------
@@ -48,7 +66,7 @@ The plugin has a few options which can be passed to it:
 
 ### Styling
 
-The default styling is visually similar to Google's pop-out apps menu as I like the clean lines and look. However the appearance can be modified by changing, overriding or replacing the styles in the `jquery.gpopover.css` stylesheet.
+The default styling is visually similar to Google's pop-out apps menu as I like the clean lines and look. However the appearance can be modified by overriding, changing, or replacing the styles in the `jquery.gpopover.css` stylesheet.
 
 The main popover element has the `gpopover` class, and the arrow is made up of two elements with the classes `gpopover-arrow` and `gpopover-arrow-shadow`. The latter is positioned 1 pixel higher to give the shadow/outline effect.
 
