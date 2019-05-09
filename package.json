@@ -2,7 +2,10 @@
   "name": "jquery-gpopover-plugin",
   "version": "1.0.0",
   "description": "A simple jQuery plugin for creating popover elements similar to Google's apps launcher/switcher.",
-  "main": "jquery.gpopover.js",
+  "main": "./jquery.gpopover.js",
+  "style": [
+    "./jquery.gpopover.css"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
